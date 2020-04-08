@@ -1,0 +1,14 @@
+antlr-ast==0.8.1  # only actually need to install this
+antlr4-python3-runtime==4.7.2
+configparser==4.0.2
+decorator==4.4.2
+entrypoints==0.3
+enum34==1.1.10
+flake8==3.7.9
+functools32==3.2.3.post2
+mccabe==0.6.1
+networkx==2.4  # and this
+pycodestyle==2.5.0
+pyflakes==2.1.1
+typing==3.7.4.1
+yapf==0.29.0
