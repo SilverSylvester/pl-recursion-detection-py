@@ -8,6 +8,12 @@ a(X) :- b(X).
 b(X) :- c(X).
 c(X) :- a(X).
 
+
+% f should be considered recursive here because it transitively calls a
+% user-defined recursive function.
+f(X) :- g(X).
+g(X) :- g(X).
+
 % Example from Lab 07
 % Question 1: (simple solution)
 second(X,[_,X|_]).

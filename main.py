@@ -36,12 +36,25 @@ def main():
                     if chunk.term:
                         walkTerms(left, chunk.term)
 
+    recursive_functions = set()
     call_graph = DiGraph(call_graph)
+
+    # Any function that appears in a cycle in the call graph is recursive.
     for cycle in nx.simple_cycles(call_graph):
-        if len(cycle) == 1:
-            print(f"{', '.join(cycle)} is recursive.")
-        else:
-            print(f"{', '.join(cycle)} are mutually recursive.")
+        recursive_functions.update(cycle)
+
+    # We also want to cover functions which are recursive because they
+    # transitively call user-defined recursive functions.
+    new_rec_funcs = []
+    for func in call_graph.nodes():
+        for rec_func in recursive_functions:
+            if nx.has_path(call_graph, func, rec_func):
+                new_rec_funcs.append(func)
+
+    recursive_functions.update(new_rec_funcs)
+
+    # should be {'even','odd','a','b','c','f','g','listtran','fib'}
+    print("All recursive functions:", recursive_functions)
 
 
 if __name__ == "__main__":
